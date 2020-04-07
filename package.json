@@ -28,5 +28,8 @@
   "homepage": "https://github.com/will-r-warner/pokedex#readme",
   "dependencies": {
     "node-sass-chokidar": "^1.4.0"
+  },
+  "devDependencies": {
+    "prettier": "2.0.4"
   }
 }

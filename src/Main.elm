@@ -18,16 +18,29 @@ type HttpRequestStatus
     | Success
 
 
+type alias Pokemon =
+    { id : Int
+    , name : String
+    , weight : Int
+    , spriteUrl : String
+    }
+
+
 type alias Model =
-    { pokemonId : Int
-    , pokemonSpriteUrl : String
+    { pokemon : Pokemon
+    , pokemonRequestId : Int
     , requestStatus : HttpRequestStatus
     }
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( { pokemonId = 1, pokemonSpriteUrl = "", requestStatus = Loading }, getPokemon 1 )
+    ( { pokemon = Pokemon 0 "" 0 ""
+      , pokemonRequestId = 1
+      , requestStatus = Loading
+      }
+    , getPokemon 1
+    )
 
 
 
@@ -37,34 +50,54 @@ init =
 type Msg
     = IncrementId
     | DecrementId
-    | GotPokemon (Result Http.Error String)
+    | GotPokemon (Result Http.Error Pokemon)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         IncrementId ->
-            ( { pokemonId = model.pokemonId + 1
-              , pokemonSpriteUrl = model.pokemonSpriteUrl
+            ( { pokemon = model.pokemon
+              , pokemonRequestId = model.pokemonRequestId + 1
               , requestStatus = Loading
               }
-            , getPokemon (model.pokemonId + 1)
+            , getPokemon (model.pokemonRequestId + 1)
             )
 
         DecrementId ->
-            if model.pokemonId == 1 then
-                ( { pokemonId = model.pokemonId, pokemonSpriteUrl = model.pokemonSpriteUrl, requestStatus = Loading }, getPokemon model.pokemonId )
+            if model.pokemonRequestId == 1 then
+                ( { pokemon = model.pokemon
+                  , pokemonRequestId = model.pokemonRequestId
+                  , requestStatus = Loading
+                  }
+                , getPokemon model.pokemonRequestId
+                )
 
             else
-                ( { pokemonId = model.pokemonId - 1, pokemonSpriteUrl = model.pokemonSpriteUrl, requestStatus = Loading }, getPokemon (model.pokemonId - 1) )
+                ( { pokemon = model.pokemon
+                  , pokemonRequestId = model.pokemonRequestId - 1
+                  , requestStatus = Loading
+                  }
+                , getPokemon (model.pokemonRequestId - 1)
+                )
 
         GotPokemon result ->
             case result of
-                Ok url ->
-                    ( { pokemonId = model.pokemonId, pokemonSpriteUrl = url, requestStatus = Success }, Cmd.none )
+                Ok pokemon ->
+                    ( { pokemon = pokemon
+                      , pokemonRequestId = model.pokemonRequestId
+                      , requestStatus = Success
+                      }
+                    , Cmd.none
+                    )
 
                 Err _ ->
-                    ( { pokemonId = model.pokemonId, pokemonSpriteUrl = "", requestStatus = Failure }, Cmd.none )
+                    ( { pokemon = model.pokemon
+                      , pokemonRequestId = model.pokemonRequestId
+                      , requestStatus = Failure
+                      }
+                    , Cmd.none
+                    )
 
 
 
@@ -78,7 +111,6 @@ view model =
             div []
                 [ div []
                     [ button [ onClick DecrementId ] [ text "-" ]
-                    , span [] [ text <| String.fromInt model.pokemonId ]
                     , button [ onClick IncrementId ] [ text "+" ]
                     ]
                 , div []
@@ -90,21 +122,27 @@ view model =
             div []
                 [ div []
                     [ button [ onClick DecrementId ] [ text "-" ]
-                    , span [] [ text <| String.fromInt model.pokemonId ]
                     , button [ onClick IncrementId ] [ text "+" ]
                     ]
-                , div [] []
+                , div []
+                    [ div [] [ text ("Id = " ++ String.fromInt model.pokemon.id) ]
+                    , div [] [ text ("Name = " ++ model.pokemon.name) ]
+                    , div [] [ text <| ("Weight = " ++ String.fromInt model.pokemon.weight) ]
+                    , img [ src model.pokemon.spriteUrl ] []
+                    ]
                 ]
 
         Success ->
             div []
                 [ div []
                     [ button [ onClick DecrementId ] [ text "-" ]
-                    , span [] [ text <| String.fromInt model.pokemonId ]
                     , button [ onClick IncrementId ] [ text "+" ]
                     ]
                 , div []
-                    [ img [ src model.pokemonSpriteUrl ] []
+                    [ div [] [ text ("Id = " ++ String.fromInt model.pokemon.id) ]
+                    , div [] [ text ("Name = " ++ model.pokemon.name) ]
+                    , div [] [ text <| ("Weight = " ++ String.fromInt model.pokemon.weight) ]
+                    , img [ src model.pokemon.spriteUrl ] []
                     ]
                 ]
 
@@ -114,16 +152,20 @@ view model =
 
 
 getPokemon : Int -> Cmd Msg
-getPokemon pokemonId =
+getPokemon pokemonRequestId =
     Http.get
-        { url = "https://pokeapi.co/api/v2/pokemon/" ++ String.fromInt pokemonId
+        { url = "https://pokeapi.co/api/v2/pokemon/" ++ String.fromInt pokemonRequestId
         , expect = Http.expectJson GotPokemon pokemonDecoder
         }
 
 
-pokemonDecoder : Decoder String
+pokemonDecoder : Decoder Pokemon
 pokemonDecoder =
-    field "sprites" (field "front_default" string)
+    Json.Decode.map4 Pokemon
+        (field "id" Json.Decode.int)
+        (field "name" string)
+        (field "weight" Json.Decode.int)
+        (field "sprites" (field "front_default" string))
 
 
 

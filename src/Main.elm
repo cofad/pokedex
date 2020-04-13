@@ -134,11 +134,7 @@ view model =
 
         Success ->
             div []
-                [ div []
-                    [ button [ onClick DecrementId ] [ text "-" ]
-                    , button [ onClick IncrementId ] [ text "+" ]
-                    ]
-                , div [ class "pokedex-container" ]
+                [ div [ class "pokedex-container" ]
                     [ div [ class "pokedex" ]
                         [ img [ src "./assets/pokedex.svg" ] []
                         , img [ src model.pokemon.spriteUrl, class "pokedex__pokemon-img" ] []
@@ -147,6 +143,8 @@ view model =
                             , div [] [ text ("Name = " ++ model.pokemon.name) ]
                             , div [] [ text <| ("Weight = " ++ String.fromInt model.pokemon.weight) ]
                             ]
+                        , button [ onClick DecrementId, class "pokedex__btn-decrement" ] [ text "-" ]
+                        , button [ onClick IncrementId, class "pokedex__btn-increment" ] [ text "+" ]
                         ]
                     ]
                 ]

@@ -32,4 +32,22 @@ body {
     color: white;
     text-align: left;
   }
+
+  &__btn-decrement {
+    top: 294px;
+    left: 175px;
+    position: absolute;
+    color: white;
+    border: none;
+    background: transparent;
+  }
+
+  &__btn-increment {
+    top: 295px;
+    left: 214px;
+    position: absolute;
+    color: white;
+    border: none;
+    background: transparent;
+  }
 }

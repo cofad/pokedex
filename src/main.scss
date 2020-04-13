@@ -14,3 +14,22 @@ body {
   padding: 0;
   text-align: center;
 }
+
+.pokedex {
+  position: relative;
+  display: inline-block;
+
+  &__pokemon-img {
+    top: 131px;
+    left: 78px;
+    position: absolute;
+  }
+
+  &__pokemon-data {
+    top: 119px;
+    left: 313px;
+    position: absolute;
+    color: white;
+    text-align: left;
+  }
+}

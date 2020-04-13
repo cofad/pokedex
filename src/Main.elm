@@ -2,7 +2,7 @@ module Main exposing (..)
 
 import Browser
 import Html exposing (Html, button, div, img, span, text)
-import Html.Attributes exposing (src)
+import Html.Attributes exposing (class, src)
 import Html.Events exposing (onClick)
 import Http
 import Json.Decode exposing (Decoder, field, string)
@@ -138,11 +138,16 @@ view model =
                     [ button [ onClick DecrementId ] [ text "-" ]
                     , button [ onClick IncrementId ] [ text "+" ]
                     ]
-                , div []
-                    [ div [] [ text ("Id = " ++ String.fromInt model.pokemon.id) ]
-                    , div [] [ text ("Name = " ++ model.pokemon.name) ]
-                    , div [] [ text <| ("Weight = " ++ String.fromInt model.pokemon.weight) ]
-                    , img [ src model.pokemon.spriteUrl ] []
+                , div [ class "pokedex-container" ]
+                    [ div [ class "pokedex" ]
+                        [ img [ src "./assets/pokedex.svg" ] []
+                        , img [ src model.pokemon.spriteUrl, class "pokedex__pokemon-img" ] []
+                        , div [ class "pokedex__pokemon-data" ]
+                            [ div [] [ text ("Id = " ++ String.fromInt model.pokemon.id) ]
+                            , div [] [ text ("Name = " ++ model.pokemon.name) ]
+                            , div [] [ text <| ("Weight = " ++ String.fromInt model.pokemon.weight) ]
+                            ]
+                        ]
                     ]
                 ]
 

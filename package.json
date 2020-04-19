@@ -10,7 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive --usePolling --polling-interval 500",
-    "start": "elm-app start"
+    "start": "elm-app start",
+    "build": "node-sass-chokidar src/ -o src/ && elm-app build"
   },
   "repository": {
     "type": "git",

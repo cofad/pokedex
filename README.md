@@ -8,6 +8,7 @@ My take on the pokédex from the Pokémon® series written in [Elm](https://elm-
 - [Prerequisites](#prerequisites)
 - [Running the Application](#running-the-application)
 - [Building the Application](#building-application)
+- [Contributing](#contributing)
 - [Credits](#credits)
 - [License](#license)
 
@@ -60,6 +61,48 @@ npm install create-elm-app -g
    ```
 
 2. The resulting ditributable files in the "build" directory can uploaded to any server.
+
+## Contributing
+
+### Commit Message Guidelines
+
+This project utilizes the [conventional commit](https://www.conventionalcommits.org/en/v1.0.0-beta.4/) standard V1.0.0 with inspiration from the [Angular commit guidelines](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#commit).
+
+#### Type
+
+The commit type must be one of the following:
+
+- build: Changes that affect the build system or external dependecies
+- docs: Documentation only changes
+- feat: New feature
+- fix: A bug fix
+- perf: A code change that improves performance
+- refactor: A code change that neither fixes a bug nor adds a feature
+- style: Changes that do not affect the meaning of the code
+- revert: For reverting a commit
+- test: Adding missing tests or correcting existing tests
+
+#### Revert
+
+If the commit reverts a previous commit, it should begin with "revert:" , followed by a space and the header of the reverted commit. In the body, it should say, "This reverts commit \<hash\>.", where "\<hash\>" is the SHA of the commit being reverted.
+
+#### Subject
+
+The subject contains a succinct description of the change:
+
+- use the imperative, present tense: "change" not "changed" nor "changes"
+- don't capitalize the first letter
+- no dot (.) at the end
+
+#### Body
+
+Just as in the subject, use the imperative, present tense: "change" not "changed" nor "changes". The body should include the motivation for the change and contrast this with previous behavior.
+
+#### Footer
+
+The footer should contain any information about Breaking Changes and is also the place to reference GitHub issues that this commit closes.
+
+Breaking Changes should start with the word BREAKING CHANGE: with a space or two newlines. The rest of the commit message is then used for this.
 
 ## Credits
 

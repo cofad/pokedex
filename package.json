@@ -12,7 +12,7 @@
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive --usePolling --polling-interval 500",
     "start": "elm-app start",
     "build": "node-sass-chokidar src/ -o src/ && elm-app build",
-    "deploy": "git checkout master && git subtree split --prefix build -b gh-pages && git push -f origin gh-pages:gh-pages && git branch -D gh-pages"
+    "deploy": "gh-pages -d build"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
     "node-sass-chokidar": "^1.4.0"
   },
   "devDependencies": {
+    "gh-pages": "^2.2.0",
     "prettier": "2.0.4"
   }
 }

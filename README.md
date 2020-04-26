@@ -92,6 +92,7 @@ The subject contains a succinct description of the change:
 
 - use the imperative, present tense: "change" not "changed" nor "changes"
 - don't capitalize the first letter
+- include a space between the after the ":"
 - no dot (.) at the end
 
 #### Body

@@ -6,6 +6,7 @@ import Html.Attributes exposing (class, src)
 import Html.Events exposing (onClick)
 import Http
 import Json.Decode exposing (Decoder, field, string)
+import String.Extra exposing (toTitleCase)
 
 
 
@@ -133,7 +134,7 @@ view model =
                     , img [ src model.pokemon.spriteUrl, class "pokedex__pokemon-img" ] []
                     , div [ class "pokedex__pokemon-data" ]
                         [ div [] [ text ("Id = " ++ String.fromInt model.pokemon.id) ]
-                        , div [] [ text ("Name = " ++ model.pokemon.name) ]
+                        , div [] [ text ("Name = " ++ toTitleCase model.pokemon.name) ]
                         , div [] [ text <| ("Weight = " ++ String.fromInt model.pokemon.weight) ]
                         ]
                     , button [ onClick DecrementId, class "pokedex__btn-decrement" ] [ text "-" ]
@@ -149,7 +150,7 @@ view model =
                     , img [ src model.pokemon.spriteUrl, class "pokedex__pokemon-img" ] []
                     , div [ class "pokedex__pokemon-data" ]
                         [ div [] [ text ("Id = " ++ String.fromInt model.pokemon.id) ]
-                        , div [] [ text ("Name = " ++ model.pokemon.name) ]
+                        , div [] [ text ("Name = " ++ toTitleCase model.pokemon.name) ]
                         , div [] [ text <| ("Weight = " ++ String.fromInt model.pokemon.weight) ]
                         ]
                     , button [ onClick DecrementId, class "pokedex__btn-decrement" ] [ text "-" ]

@@ -1,6 +1,6 @@
 {
-  "short_name": "Elm App",
-  "name": "Create Elm App Sample",
+  "short_name": "pokedex",
+  "name": "My take on the pokedex from Pokemon using the Elm language",
   "icons": [
     {
       "src": "favicon.ico",

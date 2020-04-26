@@ -62,6 +62,14 @@ npm install create-elm-app -g
 
 2. The resulting ditributable files in the "build" directory can uploaded to any server.
 
+## Deploying to Github Pages
+
+1. Run the NPM deploy script to build and deploy the application to Github Pages. The site can be viewed at [https://cofad.github.io/pokedex/](https://cofad.github.io/pokedex/)
+
+   ```console
+   npm run deploy
+   ```
+
 ## Contributing
 
 ### Commit Message Guidelines

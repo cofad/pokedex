@@ -66,7 +66,7 @@ npm install create-elm-app -g
 
 ### Commit Message Guidelines
 
-This project utilizes the [conventional commit](https://www.conventionalcommits.org/en/v1.0.0-beta.4/) standard V1.0.0 with inspiration from the [Angular commit guidelines](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#commit).
+This project utilizes the [conventional commits](https://www.conventionalcommits.org/en/v1.0.0-beta.4/) standard V1.0.0 with inspiration from the [Angular commit guidelines](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#commit).
 
 #### Type
 

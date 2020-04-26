@@ -30,14 +30,16 @@ type alias Model =
     { pokemon : Pokemon
     , pokemonRequestId : Int
     , requestStatus : HttpRequestStatus
+    , version : String
     }
 
 
-init : ( Model, Cmd Msg )
-init =
+init : String -> ( Model, Cmd Msg )
+init version =
     ( { pokemon = Pokemon 0 "" 0 ""
       , pokemonRequestId = 1
       , requestStatus = Loading
+      , version = version
       }
     , getPokemon 1
     )
@@ -60,6 +62,7 @@ update msg model =
             ( { pokemon = model.pokemon
               , pokemonRequestId = model.pokemonRequestId + 1
               , requestStatus = Loading
+              , version = model.version
               }
             , getPokemon (model.pokemonRequestId + 1)
             )
@@ -69,6 +72,7 @@ update msg model =
                 ( { pokemon = model.pokemon
                   , pokemonRequestId = model.pokemonRequestId
                   , requestStatus = Loading
+                  , version = model.version
                   }
                 , getPokemon model.pokemonRequestId
                 )
@@ -77,6 +81,7 @@ update msg model =
                 ( { pokemon = model.pokemon
                   , pokemonRequestId = model.pokemonRequestId - 1
                   , requestStatus = Loading
+                  , version = model.version
                   }
                 , getPokemon (model.pokemonRequestId - 1)
                 )
@@ -87,6 +92,7 @@ update msg model =
                     ( { pokemon = pokemon
                       , pokemonRequestId = model.pokemonRequestId
                       , requestStatus = Success
+                      , version = model.version
                       }
                     , Cmd.none
                     )
@@ -95,6 +101,7 @@ update msg model =
                     ( { pokemon = model.pokemon
                       , pokemonRequestId = model.pokemonRequestId
                       , requestStatus = Failure
+                      , version = model.version
                       }
                     , Cmd.none
                     )
@@ -108,7 +115,7 @@ view : Model -> Html Msg
 view model =
     case model.requestStatus of
         Failure ->
-            div []
+            div [ class "app-container" ]
                 [ div []
                     [ button [ onClick DecrementId ] [ text "-" ]
                     , button [ onClick IncrementId ] [ text "+" ]
@@ -116,32 +123,39 @@ view model =
                 , div []
                     [ span [] [ text "Error retrieving sprite url..." ]
                     ]
+                , div [ class "version-container" ] [ text ("v" ++ model.version) ]
                 ]
 
         Loading ->
-            div [ class "pokedex" ]
-                [ img [ src "./assets/pokedex.svg" ] []
-                , img [ src model.pokemon.spriteUrl, class "pokedex__pokemon-img" ] []
-                , div [ class "pokedex__pokemon-data" ]
-                    [ div [] [ text ("Id = " ++ String.fromInt model.pokemon.id) ]
-                    , div [] [ text ("Name = " ++ model.pokemon.name) ]
-                    , div [] [ text <| ("Weight = " ++ String.fromInt model.pokemon.weight) ]
+            div [ class "app-container" ]
+                [ div [ class "pokedex" ]
+                    [ img [ src "./assets/pokedex.svg" ] []
+                    , img [ src model.pokemon.spriteUrl, class "pokedex__pokemon-img" ] []
+                    , div [ class "pokedex__pokemon-data" ]
+                        [ div [] [ text ("Id = " ++ String.fromInt model.pokemon.id) ]
+                        , div [] [ text ("Name = " ++ model.pokemon.name) ]
+                        , div [] [ text <| ("Weight = " ++ String.fromInt model.pokemon.weight) ]
+                        ]
+                    , button [ onClick DecrementId, class "pokedex__btn-decrement" ] [ text "-" ]
+                    , button [ onClick IncrementId, class "pokedex__btn-increment" ] [ text "+" ]
                     ]
-                , button [ onClick DecrementId, class "pokedex__btn-decrement" ] [ text "-" ]
-                , button [ onClick IncrementId, class "pokedex__btn-increment" ] [ text "+" ]
+                , div [ class "version-container" ] [ text ("v" ++ model.version) ]
                 ]
 
         Success ->
-            div [ class "pokedex" ]
-                [ img [ src "./assets/pokedex.svg" ] []
-                , img [ src model.pokemon.spriteUrl, class "pokedex__pokemon-img" ] []
-                , div [ class "pokedex__pokemon-data" ]
-                    [ div [] [ text ("Id = " ++ String.fromInt model.pokemon.id) ]
-                    , div [] [ text ("Name = " ++ model.pokemon.name) ]
-                    , div [] [ text <| ("Weight = " ++ String.fromInt model.pokemon.weight) ]
+            div [ class "app-container" ]
+                [ div [ class "pokedex" ]
+                    [ img [ src "./assets/pokedex.svg" ] []
+                    , img [ src model.pokemon.spriteUrl, class "pokedex__pokemon-img" ] []
+                    , div [ class "pokedex__pokemon-data" ]
+                        [ div [] [ text ("Id = " ++ String.fromInt model.pokemon.id) ]
+                        , div [] [ text ("Name = " ++ model.pokemon.name) ]
+                        , div [] [ text <| ("Weight = " ++ String.fromInt model.pokemon.weight) ]
+                        ]
+                    , button [ onClick DecrementId, class "pokedex__btn-decrement" ] [ text "-" ]
+                    , button [ onClick IncrementId, class "pokedex__btn-increment" ] [ text "+" ]
                     ]
-                , button [ onClick DecrementId, class "pokedex__btn-decrement" ] [ text "-" ]
-                , button [ onClick IncrementId, class "pokedex__btn-increment" ] [ text "+" ]
+                , div [ class "version-container" ] [ text ("v" ++ model.version) ]
                 ]
 
 
@@ -170,11 +184,11 @@ pokemonDecoder =
 ---- PROGRAM ----
 
 
-main : Program () Model Msg
+main : Program String Model Msg
 main =
     Browser.element
         { view = view
-        , init = \_ -> init
+        , init = init
         , update = update
         , subscriptions = always Sub.none
         }

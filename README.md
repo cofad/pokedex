@@ -1,6 +1,6 @@
 # Pokédex
 
-My take on the pokédex from the Pokémon® series written in [Elm](https://elm-lang.org).
+My take on the pokédex from the Pokémon® series written in [Elm](https://elm-lang.org). It can be viewed at [https://cofad.github.io/pokedex/](https://cofad.github.io/pokedex/).
 
 ## Table of Contents
 
@@ -60,7 +60,7 @@ npm install create-elm-app -g
    npm run build
    ```
 
-2. The resulting ditributable files in the "build" directory can uploaded to any server.
+2. The resulting ditributable files in the "build" directory can be uploaded to any server.
 
 ## Deploying to Github Pages
 

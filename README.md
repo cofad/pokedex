@@ -4,13 +4,13 @@ My take on the pokédex from the Pokémon® series written in [Elm](https://elm-
 
 ## Table of Contents
 
-- [Project Goals](#project-goals)
-- [Prerequisites](#prerequisites)
-- [Running the Application](#running-the-application)
-- [Building the Application](#building-application)
-- [Contributing](#contributing)
-- [Credits](#credits)
-- [License](#license)
+1. [Project Goals](#project-goals)
+1. [Prerequisites](#prerequisites)
+1. [Running the Application](#running-the-application)
+1. [Building the Application](#building-application)
+1. [Contributing](#contributing)
+1. [Credits](#credits)
+1. [License](#license)
 
 ## Project Goals
 

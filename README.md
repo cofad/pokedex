@@ -19,7 +19,7 @@ My take on the pokédex from the Pokémon® series written in [Elm](https://elm-
 
 2. Create an SVG using [Figma](https://figma.com).
 
-## Prerequisities
+## Prerequisites
 
 ### Elm Compiler
 
